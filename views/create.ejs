@@ -1,0 +1,29 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+  <%- include("./partials/nav.ejs") %>
+  <%- include("./partials/aside.ejs") %>
+
+  <div class="create-blog content">
+    <form action="/blogs" method="POST">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="snippet">Description:</label>
+      <input type="text" id="snippet" name="snippet" maxlength="300" required>
+      <label for="body">Snippet:</label>
+      <textarea id="body" name="body" onsubmit="writeText(this)" required></textarea>
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" required>
+      <button class="submit">Post</button>
+    </form>
+  </div>
+
+  <%- include("./partials/footer.ejs") %>
+
+  <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+  <script>
+    let editor = new FroalaEditor('#body');
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
+</head>
+<body>
+  <%- include("./partials/nav.ejs") %>
+  <%- include("./partials/aside.ejs") %>
+
+  <div class="blogs content">
+      <div class="row header"> 
+        <h2>All</h2>    
+          <!--Delete all-->
+         <a class="delete-all" data-doc="<%= %>">
+          <img src="/trashcan.svg" alt="delete icon">
+        </a>
+      </div>
+     
+  
+
+  
+  
+    <% if (blogs.length > 0) { %>
+      <% blogs.forEach(blog => { %>
+        <a class="single" href="/blogs/<%= blog._id %>">
+          <h3 class="title"><%= blog.title %></h3>
+          <p>by: <%= blog.author %></p> <br>
+
+          <p class="snippet"><%= blog.snippet %></p>
+        </a>
+      <% }) %>
+    <% } else { %>
+      <p>There are no blogs to display...</p>
+    <% } %>
+    
+  </div>
+
+  <%- include("./partials/footer.ejs") %>
+
+
+  <script>
+    const trashcan = document.querySelector('a.delete-all');
+
+    trashcan.addEventListener('click', (e) => {
+      const endpoint = `/blogs/`;
+
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+    });
+    
+  </script>
+ 
+</body>
+</html>
